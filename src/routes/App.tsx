@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Home from '../containers/Home';
 
-const App = () => (
+const App: React.FC = () => (
   <BrowserRouter>
       <Switch>
         <Route exact path='/' component={Home} />

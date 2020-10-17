@@ -2,22 +2,29 @@ import * as path from 'path';
 import * as webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin  from 'mini-css-extract-plugin'
-
+import '@babel/polyfill';
 
 const config: webpack.Configuration = {
-  entry: './src/index.ts',
+  devtool: 'inline-source-map',
+  entry: ['@babel/polyfill', './src/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
   module:{
     rules:[
       {
         test: /\.(tsx|ts)$/,
-        use: {
-          loader: 'babel-loader'
-        },
-        include: [path.resolve(__dirname, 'src')]
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          'ts-loader'
+        ]
       },
       {
         test: /\.html$/,
