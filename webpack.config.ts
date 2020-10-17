@@ -5,11 +5,13 @@ import MiniCssExtractPlugin  from 'mini-css-extract-plugin'
 import '@babel/polyfill';
 
 const config: webpack.Configuration = {
+  context: __dirname,
   devtool: 'inline-source-map',
   entry: ['@babel/polyfill', './src/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/dist/'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
