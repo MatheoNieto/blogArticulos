@@ -3,13 +3,14 @@ import styled from 'styled-components'
 
 import { Mutation } from '@apollo/react-components';
 import { connect } from 'react-redux';
+import { login } from '../store/actions/loginActions';
 
 
 const Container = styled.div({
   backgroundColor: '#fff',
   padding: 10,
   width: '100vw',
-  height: '100vh',
+  height: '50vh',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -46,10 +47,6 @@ class Login extends Component {
     }
   }
 
-  handleSubmitForm= ()=>{
-
-  }
-  
   render() {
     return (
       <>
@@ -65,14 +62,11 @@ class Login extends Component {
 
               <label htmlFor="">Contraseña</label>
               <input 
-                type="text" 
-                name=""
-                id=""
+                type="password" 
               />
 
               <button
                 className='btn btn-success'
-                onClick={this.handleSubmitForm()}
               >
                 Iniciar sesión
               </button>
@@ -84,5 +78,12 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (reducers: any) => {
+  return reducers.loginReducer
+};
 
-export default  Login 
+const mapDispatchToProps = (dispatch: any) => ({
+  login: (payload: any) => dispatch(login(payload)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login) 
