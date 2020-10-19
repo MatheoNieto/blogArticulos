@@ -93,8 +93,8 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                loader: "awesome-typescript-loader"
+                test: /\.(tsx|ts)?$/,
+                loader: "babel-loader"
             },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
@@ -110,7 +110,7 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            template: 'src/index.html'
+            template: 'public/index.html'
         }),
         new MiniCssExtractPlugin("style.css")
     ],
