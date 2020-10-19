@@ -8,6 +8,7 @@ body{
   padding: 0;
   margin: 0;
   font-family: $theme-font ;
+  overflow-x: hidden;
 }
 
 input{
@@ -17,17 +18,49 @@ input{
   padding: 5px;
 }
 
-button{
-  background-color: #5cb85c;
+.btn{
   font-size: 17px;
   padding: 10px;
   margin-top: 10px;
   border: none;
   border-radius: 5px;
+}
+
+.btn-sm{
+  font-size: 15px;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+  border-radius: 2px;
+}
+
+.btn-success{
+  @extend .btn;
+  background-color: #5cb85c;
   color: white;
   &:hover{
     cursor: pointer;
     background-color: #45A845;
+  }
+}
+
+.btn-danger{
+  @extend .btn;
+  background-color: #EB3131;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: #D11919;
+  }
+}
+
+.btn-warning{
+  @extend .btn;
+  background-color: #f0ad4e;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: #E6A242;
   }
 }
 
@@ -39,4 +72,20 @@ h1{
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.flex-start{
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.width-60{
+  width: 60%;
+}
+
+table{
+  width: 100%;
+  text-align: center;
 }
