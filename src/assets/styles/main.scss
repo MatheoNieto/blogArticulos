@@ -9,3 +9,34 @@ body{
   margin: 0;
   font-family: $theme-font ;
 }
+
+input{
+  height: 20px;
+  border: none;
+  font-size: 15;
+  padding: 5px;
+}
+
+button{
+  background-color: #5cb85c;
+  font-size: 17px;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: #45A845;
+  }
+}
+
+h1{
+  font-family: $theme-font;
+}
+
+.box-shadow{
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
