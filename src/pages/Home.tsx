@@ -9,6 +9,7 @@ import Error from '../components/Error';
 import Tabla from '../components/Tabla';
 
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
 
 
 interface Props {
@@ -64,27 +65,29 @@ class Home extends Component <Props, State> {
   render() {
     return (
       <>
-        <div className='container'>
-          <Header>
+        <Header>
+          <div className='container'>
+              <Container>
 
-            <Container>
+                <div className='flex-start width-60'>
+                  <Link to='/createArticulos'>
+                    <button
+                      className='btn btn-success'
+                    >
+                        Crear articulo
+                    </button>
+                  </Link>
+                  
+                </div>
+                <ContentTable className='box-shadow-sm overflow-x'>
+                  { this.ponerContenido() }
+                </ContentTable>
+              </Container>
 
-              <div className='flex-start width-60'>
-                <button
-                  className='btn btn-danger'
-                >
-                  Crear articulo
-                </button>
-              </div>
-              <ContentTable>
-                { this.ponerContenido() }
-              </ContentTable>
-            </Container>
 
-            <Footer />
-
-          </Header>
-        </div>
+          </div>
+          <Footer />
+        </Header>
       </>
     )
   }

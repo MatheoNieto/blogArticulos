@@ -3,7 +3,6 @@
 $theme-font: 'Poppins', sans-serif;
 $theme-background: linear-gradient(90deg, #11998e 0%,#38ef7d 100% );
 
-
 body{
   padding: 0;
   margin: 0;
@@ -74,6 +73,12 @@ h1{
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
+.box-shadow-sm{
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
 .flex-start{
   padding: 10px;
   display: flex;
@@ -86,6 +91,55 @@ h1{
 }
 
 table{
+  border-collapse: collapse;
   width: 100%;
   text-align: center;
+}
+
+table, td, th{
+  border: 1px solid #E5E5E5;
+}
+
+.container{
+  background-color: #F0F0F0;
+  padding: 10px;
+  width: 100vw;
+  height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-form{
+  background-color: #fff;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+}
+
+.input{
+  border: 1px solid #DCDCDC;
+  width: 95%;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.textarea{
+  resize: none;
+  width: 95%;
+  height: 80px;
+  padding: 10px;
+}
+
+.space-between{
+  display: flex;
+  flex-direction: row ;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.overflow-x{
+  overflow-x: auto;
 }

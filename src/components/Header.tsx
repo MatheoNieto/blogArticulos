@@ -1,11 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Header: React.FC = (props: any)=>{
+interface Props{
+  title?: string,
+  children?: any
+}
+
+const Header = (props: Props)=>{
 
   const Container = styled.div({
     backgroundColor: '#00B7FF',
-    width: '100%',
+    width: '100vw',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -15,7 +20,9 @@ const Header: React.FC = (props: any)=>{
   return (
     <>
       <Container>
-        <h2>Login</h2>
+        <h2>
+          {(!props.title)? 'Home': props.title}
+        </h2>
       </Container>
       {
         props.children

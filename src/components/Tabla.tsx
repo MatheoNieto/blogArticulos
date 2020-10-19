@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const Tabla: React.FC = (props: any)=>{
 
-  const ponerFilas = () => props.articulos.map((articulo, key) => (
+  const ponerFilas = () => props.articulos.map((articulo: any, key: any) => (
     <>
       <tr key={key}>
 
@@ -31,17 +31,21 @@ const Tabla: React.FC = (props: any)=>{
             <td>asdfas dfasdf asdf</td>
             <td>2020-06-12</td>
             <td>
+
+              <Link to={`/createArticulos/1`}>
+                <button
+                  className='btn-sm btn-warning'
+                >
+                  Editar
+                </button>
+              </Link>
+              
               <button
                 className='btn-sm btn-danger'
               >
                 Eliminar
               </button>
 
-              <button
-                className='btn-sm btn-warning'
-              >
-                Editar
-              </button>
             </td>
           </tr>
         </tbody>
