@@ -32,7 +32,6 @@ const ContentForm = styled.div({
 
 
 
-
 class Login extends Component {
 
   constructor(props: any){
@@ -53,8 +52,7 @@ class Login extends Component {
               <label htmlFor="">Usuario</label>
               <input 
                 type="text" 
-                name=""
-                id=""
+                onChange={()=>null}
               />
 
               <label htmlFor="">Contraseña</label>
