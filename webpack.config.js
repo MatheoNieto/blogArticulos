@@ -78,12 +78,13 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+require('@babel/polyfill');
 
 module.exports = {
 
-    entry: './src/index.tsx',
+    entry: ['@babel/polyfill', './src/index.tsx'],
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     resolve: {
@@ -96,8 +97,11 @@ module.exports = {
                 test: /\.(tsx|ts)?$/,
                 loader: "babel-loader"
             },
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            { 
+                enforce: "pre",
+                test: /\.js$/, 
+                loader: "source-map-loader"
+            },
             {
                 test: /\.scss$/,
                 use: [
@@ -112,7 +116,10 @@ module.exports = {
         new HTMLWebpackPlugin({
             template: 'public/index.html'
         }),
-        new MiniCssExtractPlugin("style.css")
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].css',
+        }),
+      
     ],
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
