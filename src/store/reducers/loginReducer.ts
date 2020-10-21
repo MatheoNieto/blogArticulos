@@ -5,6 +5,8 @@ import {
   LOGOUT
 } from '../types/loginTypes'
 
+import {CREATEUSER} from '../types/userTypes'
+
 const INITIAL_STATE={
   error: '',
   loading: false,
@@ -26,6 +28,9 @@ export default (state=INITIAL_STATE, action:any)=>{
     
     case LOGOUT:
       return {...state, loading: false, token: '', error: ''}
+
+    case CREATEUSER:
+      return {...state, token: action.payload, loading: false }
 
     default:
       return state
