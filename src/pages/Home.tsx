@@ -3,6 +3,9 @@ import React, {Component} from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
+import { connect } from 'react-redux';
+import {getArticulos} from '../store/actions/articulosActions'
+
 // COMPONENTS
 import Loading from '../components/Loading';
 import Error from '../components/Error';
@@ -15,6 +18,7 @@ import { Link } from 'react-router-dom';
 interface Props {
   error: string,
   cargando: boolean;
+  getArticulos: any
 }
 
 interface State {
@@ -48,7 +52,7 @@ class Home extends Component <Props, State> {
   }
 
   async  componentDidMount() {
-
+    await this.props.getArticulos()
   }
   
   ponerContenido = () => {
@@ -93,4 +97,12 @@ class Home extends Component <Props, State> {
   }
 }
 
-export default  Home
+const mapDispatchToProps = (dispatch: any) => ({
+  getArticulos: (payload: any) => dispatch(getArticulos()),
+})
+
+const mapStateToProps = (reducers: any) => {
+  return reducers.articulosReducer;
+};
+
+export default  connect(mapStateToProps, mapDispatchToProps)(Home)

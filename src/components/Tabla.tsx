@@ -3,15 +3,44 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const Tabla: React.FC = (props: any)=>{
+const Tabla = (props: any)=>{
 
-  const ponerFilas = () => props.articulos.map((articulo: any, key: any) => (
-    <>
-      <tr key={key}>
+  const ponerFilas = () => {
+    if(!props.articulos){
+      return(
+        <>
+          <tr><td colspan="5"><h3>No tienes articulos registrados</h3></td></tr>
+        </>
+      )
+    }
 
-      </tr>
-    </>
-  ))
+    
+    return props.articulos.map((articulo: any, key: any) => (
+      <>
+        <tr key={key}>
+          <td>{articulo.titulo}</td>
+          <td>{articulo.detalles}</td>
+          <td>{articulo.descripcion}</td>
+          <td>{articulo.createdAt}</td>
+          <td>
+            <Link to={`/createArticulos/${key}`}>
+              <button
+                className='btn-sm btn-warning'
+              >
+                Editar
+              </button>
+            </Link>
+            
+            <button
+              className='btn-sm btn-danger'
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </>
+    ))
+  }
   
   return (
     <>
@@ -23,35 +52,16 @@ const Tabla: React.FC = (props: any)=>{
           <th>Fecha de creación</th>
           <th>Acciones</th>
         </thead>
-
         <tbody>
-          <tr>
-            <td>asfasdfasdf</td>
-            <td>12341234</td>
-            <td>asdfas dfasdf asdf</td>
-            <td>2020-06-12</td>
-            <td>
-
-              <Link to={`/createArticulos/1`}>
-                <button
-                  className='btn-sm btn-warning'
-                >
-                  Editar
-                </button>
-              </Link>
-              
-              <button
-                className='btn-sm btn-danger'
-              >
-                Eliminar
-              </button>
-
-            </td>
-          </tr>
+            {ponerFilas()}
         </tbody>
       </table>
     </>
   )
 }
 
-export  default  Tabla
+const mapStateToProps = (reducers: any) => {
+  return reducers.articulosReducer;
+};
+
+export  default connect(mapStateToProps)(Tabla)
