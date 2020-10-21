@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import {updateArticulo, createArticulo} from '../store/actions/articulosActions'
@@ -10,7 +10,9 @@ import Footer from '../components/Footer'
 
 interface Props {
   match: any,
-  articulos: []
+  articulos: [],
+  updateArticulo: any,
+  createArticulo: any
 }
 
 interface State {
@@ -18,6 +20,8 @@ interface State {
   titulo: string,
   detalles: string,
   descripcion: string,
+  idArticulo?: string,
+  redirect: boolean
 }
 class CrearArticulo extends Component <Props, State>{
 
@@ -29,6 +33,7 @@ class CrearArticulo extends Component <Props, State>{
       titulo: '',
       detalles: '',
       descripcion: '',
+      redirect: false
     }
   }
 
@@ -45,7 +50,8 @@ class CrearArticulo extends Component <Props, State>{
         urlImagen: articulo.imagen,
         titulo: articulo.titulo,
         detalles: articulo.detalles,
-        descripcion: articulo.descripcion
+        descripcion: articulo.descripcion,
+        idArticulo: articulo.id
       })
     }
   }
@@ -64,11 +70,40 @@ class CrearArticulo extends Component <Props, State>{
   }
   handleChangeSubmitForm= (event: any)=>{
 
+    event.preventDefault();
+
+    const {
+      match: { params: { id } },
+      updateArticulo,
+      createArticulo
+    } = this.props;
+
+    const datosArticulo: any = {
+      imagen: this.state.urlImagen,
+      titulo: this.state.titulo,
+      detalles: this.state.detalles,
+      descripcion: this.state.descripcion
+    }
+
+    this.setState({
+      redirect: true
+    })
+    
+    if(id){
+      datosArticulo['id'] = this.state.idArticulo
+      updateArticulo(datosArticulo)
+      return
+    }
+
+    createArticulo(datosArticulo)
   }
 
   render(){
     return (
       <>
+        {
+          (this.state.redirect) ? <Redirect to='/home' /> : null
+        }
         <Header title='Crear articulo'>
           <div className='container'>
             <div className='content-form'>

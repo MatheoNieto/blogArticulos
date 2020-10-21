@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {deleteArticulo} from '../store/actions/articulosActions'
+
 
 const Tabla = (props: any)=>{
 
@@ -32,6 +34,7 @@ const Tabla = (props: any)=>{
             
             <button
               className='btn-sm btn-danger'
+              onClick= {()=> deleteArticulo(articulo.id)}
             >
               Eliminar
             </button>
@@ -63,4 +66,8 @@ const mapStateToProps = (reducers: any) => {
   return reducers.articulosReducer;
 };
 
-export  default connect(mapStateToProps)(Tabla)
+const mapDispatchToProps = (dispatch: any) => ({
+  deleteArticulo: (payload: any) => dispatch(deleteArticulo(payload)),
+})
+
+export  default connect(mapStateToProps, mapDispatchToProps)(Tabla)

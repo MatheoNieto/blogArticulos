@@ -36,11 +36,13 @@ const Container = styled.div({
 
 const ContentTable = styled.div({
   backgroundColor: '#fff',
-  padding: 10,
+  padding: 20,
   width: '60%',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  overflowY: 'auto',
+  height: '90%'
 })
 
 class Home extends Component <Props, State> {
