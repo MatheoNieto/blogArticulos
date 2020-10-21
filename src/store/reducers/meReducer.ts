@@ -1,5 +1,5 @@
 import {
-  LOGIN,
+  CHANGEDATAS,
   CLEARDATA
 } from '../types/meTypes'
 
@@ -13,7 +13,7 @@ export default (state=INITIAL_STATE, action:any)=>{
 
   switch(action.type){
 
-    case LOGIN:
+    case CHANGEDATAS:
       
       const {id, names, token, usermail}=  action.payload
       return {

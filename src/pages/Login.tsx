@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 
-import { Mutation } from '@apollo/react-components';
 import { connect } from 'react-redux';
 import { login } from '../store/actions/loginActions';
+
+import MessageError from '../components/MessageError'
+import { Link } from 'react-router-dom';
 
 
 const Container = styled.div({
@@ -34,17 +36,57 @@ const ContentForm = styled.div({
   display: 'flex',
   flexDirection: 'column'
 })
+interface State{
+  usuario: string,
+  password: string,
+  visibleError?: boolean,
+  messageError?: string
+}
+interface Props{
+  login: any
+}
 
-
-
-class Login extends Component {
+class Login extends Component <Props,State> {
 
   constructor(props: any){
     super(props)
 
     this.state = {
-
+      usuario: '',
+      password: '',
+      visibleError: false,
+      messageError: ''
     }
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State){
+
+  }
+
+  handleChangeUsername= (event: any)=>{
+    this.setState({usuario: event.target.value})
+  }
+
+  handleChangePassword= (event: any)=>{
+    this.setState({password: event.target.value})
+  }
+  
+  handleSubmitForm = (event: any) => {
+    event.preventDefault()
+
+    if(!this.state.usuario || !this.state.password){
+      this.setState({
+        visibleError: true,
+        messageError: 'El usuario y contraseña son requeridos'
+      })
+    }
+
+    const datosLogin = {
+      usuario: this.state.usuario,
+      password: this.state.password
+    }
+    
+    this.props.login(datosLogin)
   }
 
   render() {
@@ -54,22 +96,29 @@ class Login extends Component {
           <ContainerLogin className='box-shadow'>
             <h3>INGRESAR</h3>
             <ContentForm>
+
+              <MessageError visible={this.state.visibleError} message={this.state.messageError}/>
+
               <label htmlFor="">Usuario</label>
               <input 
                 type="text" 
-                onChange={()=>null}
+                onChange={this.handleChangeUsername}
               />
 
               <label htmlFor="">Contraseña</label>
               <input 
                 type="password" 
+                onChange={this.handleChangePassword}
               />
 
               <button
                 className='btn btn-success'
+                onClick={this.handleSubmitForm}
               >
                 Iniciar sesión
               </button>
+              <Link to='/register' > Registrar un usuario </Link>
+              
             </ContentForm>
           </ContainerLogin>
         </Container>
@@ -78,12 +127,8 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (reducers: any) => {
-  return reducers.loginReducer
-};
-
 const mapDispatchToProps = (dispatch: any) => ({
   login: (payload: any) => dispatch(login(payload)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login) 
+export default connect(null, mapDispatchToProps)(Login) 

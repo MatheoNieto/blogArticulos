@@ -1,4 +1,4 @@
 
 export const config = {
-  host_name: 'https://normal-perch-82.hasura.app/v1/graphql/'
+  host_name: 'http://ec2-18-221-78-126.us-east-2.compute.amazonaws.com/'
 }
