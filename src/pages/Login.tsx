@@ -79,8 +79,14 @@ class Login extends Component <Props,State> {
         visibleError: true,
         messageError: 'El usuario y contraseña son requeridos'
       })
+      return
     }
 
+    this.setState({
+      visibleError: false,
+      messageError: ''
+    })
+    
     const datosLogin = {
       usuario: this.state.usuario,
       password: this.state.password
