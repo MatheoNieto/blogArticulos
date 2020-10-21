@@ -4,19 +4,19 @@ import axios from 'axios'
 import {config} from '../../settings'
 
 export const crearUser = (nuevoUser: any) => async (dispatch: any) => {
-  console.log("=======> nuevo user",nuevoUser)
   dispatch({
     type: CARGANDO,
   });
 
   try {
     axios.post(`${config.host_name}user`, nuevoUser)
-      .then((data) =>{
-        console.log("====>token=>", data)
+      .then(({data}: any) =>{
+
         dispatch({
           type: LOGIN,
-          payload: data
+          payload: data.body
         });
+
       })
       .catch((err) =>{
         dispatch({

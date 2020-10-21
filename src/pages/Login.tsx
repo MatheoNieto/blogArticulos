@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { login } from '../store/actions/loginActions';
 
 import MessageError from '../components/MessageError'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 const Container = styled.div({
@@ -40,10 +40,12 @@ interface State{
   usuario: string,
   password: string,
   visibleError?: boolean,
-  messageError?: string
+  messageError?: string,
+  redirect?: boolean
 }
 interface Props{
-  login: any
+  login: any,
+  token: any
 }
 
 class Login extends Component <Props,State> {
@@ -55,12 +57,17 @@ class Login extends Component <Props,State> {
       usuario: '',
       password: '',
       visibleError: false,
+      redirect: false,
       messageError: ''
     }
   }
 
   componentDidUpdate(prevProps: Props, prevState: State){
-
+    if (prevProps.token != this.props.token) {
+      this.setState({
+        redirect: true
+      })
+    }
   }
 
   handleChangeUsername= (event: any)=>{
@@ -96,8 +103,12 @@ class Login extends Component <Props,State> {
   }
 
   render() {
+
+    console.log("this.props=>", this.props)
+    
     return (
       <>
+        {(this.props.token  != '')? <Redirect to='/home' /> :null }
         <Container>
           <ContainerLogin className='box-shadow'>
             <h3>INGRESAR</h3>
@@ -137,4 +148,8 @@ const mapDispatchToProps = (dispatch: any) => ({
   login: (payload: any) => dispatch(login(payload)),
 })
 
-export default connect(null, mapDispatchToProps)(Login) 
+const mapStateToProps = (reducers: any) => {
+  return reducers.loginReducer;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login) 

@@ -4,20 +4,28 @@ import {config} from '../../settings'
 
 export const login = (datos: any) => async (dispatch: any) => {
   try {
+    console.log("=>datos=>",datos)
+    
     dispatch({
       type: CARGANDO,
     });
 
-    console.log("====>logina=>", datos)
     axios.post(`${config.host_name}auth`, datos)
-      .then((data)=>{
+      .then(({data}: any)=>{
+        
+        if(data.body != ''){
+          dispatch({
+            type: LOGIN,
+            payload: data.body
+          });
+        }
 
-        console.log("=>data=>",data)
-        // dispatch({
-        //   type: LOGIN,
-        //   payload: datos
-        // });
-
+      })
+      .catch((err) =>{
+        dispatch({
+          type: ERROR,
+          payload: err.message,
+        });
       })
 
 

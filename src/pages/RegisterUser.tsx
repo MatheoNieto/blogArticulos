@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import MessageError from '../components/MessageError'
 
@@ -43,8 +43,6 @@ const RegisterUser = (props: any) =>{
   const [visibleError, setVisibleError] = useState(false)
   const [messageError, setMessageError] = useState('')
 
-  
-
   const handleChangeNombres = (event: any)=>{
     setNombres(event.target.value)
   }
@@ -78,6 +76,7 @@ const RegisterUser = (props: any) =>{
   
   return (
     <>
+      {(props.token != '')? <Redirect to='/home' /> :null}
       <Container>
         <ContainerRegister className='box-shadow'>
           <h3>REGISTRARSE</h3>
@@ -122,4 +121,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   crearUser: (payload: any) => dispatch(crearUser(payload)),
 })
 
-export default connect(null, mapDispatchToProps)(RegisterUser)
+const mapStateToProps = (reducers: any) => {
+  return reducers.loginReducer;
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterUser)
