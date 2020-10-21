@@ -6,6 +6,7 @@ const Footer: React.FC  = (props: any)=>{
   const Container = styled.div({
     backgroundColor: '#00B7FF',
     width: '100%',
+    height: '5%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',

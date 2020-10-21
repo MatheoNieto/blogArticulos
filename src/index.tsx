@@ -8,6 +8,7 @@ import './assets/styles/main.scss'
 
 import store from './store/index';
 
+
 ReactDOM.render(
   <Provider
     store={store}
@@ -16,3 +17,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+

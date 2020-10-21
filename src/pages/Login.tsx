@@ -1,11 +1,18 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 
+import { connect } from 'react-redux';
+import { login } from '../store/actions/loginActions';
+
+import MessageError from '../components/MessageError'
+import { Link, Redirect } from 'react-router-dom';
+
+
 const Container = styled.div({
   backgroundColor: '#fff',
   padding: 10,
   width: '100vw',
-  height: '100vh',
+  height: '50vh',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -29,46 +36,106 @@ const ContentForm = styled.div({
   display: 'flex',
   flexDirection: 'column'
 })
+interface State{
+  usuario: string,
+  password: string,
+  visibleError?: boolean,
+  messageError?: string,
+  redirect?: boolean
+}
+interface Props{
+  login: any,
+  token: any
+}
 
-
-
-
-class Login extends Component {
+class Login extends Component <Props,State> {
 
   constructor(props: any){
     super(props)
 
     this.state = {
-
+      usuario: '',
+      password: '',
+      visibleError: false,
+      redirect: false,
+      messageError: ''
     }
   }
 
+  componentDidUpdate(prevProps: Props, prevState: State){
+    if (prevProps.token != this.props.token) {
+      this.setState({
+        redirect: true
+      })
+    }
+  }
+
+  handleChangeUsername= (event: any)=>{
+    this.setState({usuario: event.target.value})
+  }
+
+  handleChangePassword= (event: any)=>{
+    this.setState({password: event.target.value})
+  }
+  
+  handleSubmitForm = (event: any) => {
+    event.preventDefault()
+
+    if(!this.state.usuario || !this.state.password){
+      this.setState({
+        visibleError: true,
+        messageError: 'El usuario y contraseña son requeridos'
+      })
+      return
+    }
+
+    this.setState({
+      visibleError: false,
+      messageError: ''
+    })
+    
+    const datosLogin = {
+      usuario: this.state.usuario,
+      password: this.state.password
+    }
+    
+    this.props.login(datosLogin)
+  }
+
   render() {
+
+    console.log("this.props=>", this.props)
+    
     return (
       <>
+        {(this.props.token  != '')? <Redirect to='/home' /> :null }
         <Container>
           <ContainerLogin className='box-shadow'>
             <h3>INGRESAR</h3>
             <ContentForm>
+
+              <MessageError visible={this.state.visibleError} message={this.state.messageError}/>
+
               <label htmlFor="">Usuario</label>
               <input 
                 type="text" 
-                name=""
-                id=""
+                onChange={this.handleChangeUsername}
               />
 
               <label htmlFor="">Contraseña</label>
               <input 
-                type="text" 
-                name=""
-                id=""
+                type="password" 
+                onChange={this.handleChangePassword}
               />
 
               <button
-                onClick={()=>{}}
+                className='btn btn-success'
+                onClick={this.handleSubmitForm}
               >
                 Iniciar sesión
               </button>
+              <Link to='/register' > Registrar un usuario </Link>
+              
             </ContentForm>
           </ContainerLogin>
         </Container>
@@ -77,5 +144,12 @@ class Login extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch: any) => ({
+  login: (payload: any) => dispatch(login(payload)),
+})
 
-export default  Login 
+const mapStateToProps = (reducers: any) => {
+  return reducers.loginReducer;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login) 
