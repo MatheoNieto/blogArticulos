@@ -14,7 +14,6 @@ const Tabla = (props: any)=>{
       )
     }
 
-    
     return props.articulos.map((articulo: any, key: any) => (
       <>
         <tr key={key}>
